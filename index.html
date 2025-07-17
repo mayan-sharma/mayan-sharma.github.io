@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>John Doe - Software Engineer</title>
+    <title>Mayan Sharma - Software Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap");
@@ -250,7 +250,7 @@
             <p class="text-sm">Tata 1mg | April 2025 - Present</p>
             <ul class="list-disc list-inside text-sm mt-2 space-y-1">
               <li>
-                Building catalyst, an open source react framework
+                Building <a href="https://catalyst.1mg.com" class="link-underline">catalyst</a>, an open source react framework
               </li>
               <li>
               Building an autonomous AI agent 
@@ -263,7 +263,13 @@
             <p class="text-sm">Tata 1mg | July 2022 - March 2025</p>
             <ul class="list-disc list-inside text-sm mt-2 space-y-1">
               <li>
-            Completley revamped 1mg web app, built a new design language system  
+                Completely revamped 1mg web app, built a new design language system  
+              </li>
+              <li>
+                UIs, pages, dashboards, analytics, observability  
+              </li>
+              <li>
+                mobile web, desktop web, webviews
               </li>
             </ul>
           </div>
@@ -273,33 +279,9 @@
         <section id="projects" class="terminal-border p-4 mb-4">
           <h2 class="section-title text-lg font-bold mb-3">Projects</h2>
 
-          <div class="space-y-4">
-            <div>
-              <h3 class="font-bold">Sorting Visualizer</h3>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <a
-                  href="https://mayan-sharma.github.io/Sorting-Visualizer/"
-                  class="retro-button"
-                  >GitHub</a
-                >
-              </div>
-            </div>
-
-            <div>
-              <h3 class="font-bold">Custom react hooks library</h3>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <a
-                  href="https://github.com/mayan-sharma/use-everything"
-                  class="retro-button"
-                  >GitHub</a
-                >
-                <a
-                  href="https://www.npmjs.com/package/use-everything"
-                  class="retro-button"
-                  >NPM</a
-                >
-              </div>
-            </div>
+          <div id="projects-container" class="space-y-4">
+            <!-- Projects will be populated by JavaScript -->
+          </div>
         </section>
 
         <!-- Contact Section -->
@@ -335,15 +317,83 @@
 
         <!-- Footer -->
         <footer class="terminal-border p-2 text-center text-sm">
-          <p>&copy; 2025 Mayan Sharma. Built with AI</p>
+          <p>&copy; 2025 Mayan Sharma</p>
         </footer>
       </div>
     </div>
 
     <script>
+      // Projects configuration object
+      const projectsConfig = {
+        featured: [
+          {
+            title: "Sorting Visualizer",
+            links: [
+              { text: "GitHub", url: "https://mayan-sharma.github.io/Sorting-Visualizer/" }
+            ]
+          },
+          {
+            title: "Custom react hooks library",
+            links: [
+              { text: "GitHub", url: "https://github.com/mayan-sharma/use-everything" },
+              { text: "NPM", url: "https://www.npmjs.com/package/use-everything" }
+            ]
+          }
+        ],
+        showViewAllButton: true,
+        viewAllButtonText: "View All Projects",
+        viewAllButtonUrl: "projects.html"
+      };
+
+      // Function to render projects
+      function renderProjects() {
+        const container = document.getElementById('projects-container');
+        
+        // Render featured projects
+        projectsConfig.featured.forEach(project => {
+          const projectDiv = document.createElement('div');
+          
+          const titleElement = document.createElement('h3');
+          titleElement.className = 'font-bold';
+          titleElement.textContent = project.title;
+          projectDiv.appendChild(titleElement);
+          
+          const linksContainer = document.createElement('div');
+          linksContainer.className = 'flex flex-wrap gap-2 text-sm';
+          
+          project.links.forEach(link => {
+            const linkElement = document.createElement('a');
+            linkElement.href = link.url;
+            linkElement.className = 'retro-button';
+            linkElement.textContent = link.text;
+            linksContainer.appendChild(linkElement);
+          });
+          
+          projectDiv.appendChild(linksContainer);
+          container.appendChild(projectDiv);
+        });
+        
+        // Add View All Projects button if enabled
+        if (projectsConfig.showViewAllButton) {
+          const buttonContainer = document.createElement('div');
+          buttonContainer.className = 'mt-4';
+          
+          const viewAllButton = document.createElement('a');
+          viewAllButton.href = projectsConfig.viewAllButtonUrl;
+          viewAllButton.className = 'retro-button text-sm';
+          viewAllButton.textContent = projectsConfig.viewAllButtonText;
+          
+          buttonContainer.appendChild(viewAllButton);
+          container.appendChild(buttonContainer);
+        }
+      }
+
       // Set last updated date
       document.getElementById("lastUpdated").textContent =
         new Date().toLocaleDateString();
+
+      // Render projects on page load
+      renderProjects();
 
       // Smooth scrolling for navigation links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
